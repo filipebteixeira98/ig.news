@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 
 import { SubscribeButton } from '../components/SubscribeButton'
@@ -22,4 +23,10 @@ export default function Home() {
       <img src="/images/avatar.svg" alt="Girl coding"/>
     </main>
   ]
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    
+  }
 }
