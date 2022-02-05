@@ -1,4 +1,7 @@
+import { useEffect } from 'react'
 import { GetStaticProps } from 'next'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
 import { RichText } from 'prismic-dom'
@@ -17,6 +20,16 @@ interface PostPreviewProps {
 }
 
 export default function PostPreview({ post }: PostPreviewProps) {
+  const { data: session } = useSession()
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (session?.activeSubscription) {
+      router.push(`/posts/${post.slug}`)
+    }
+  }, [session])
+
   return (
     <>
       <Head>
