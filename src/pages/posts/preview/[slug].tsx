@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { GetStaticProps } from 'next'
+import { GetStaticProps, GetStaticPaths } from 'next'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -52,9 +52,11 @@ export default function PostPreview({ post }: PostPreviewProps) {
   )
 }
 
-export const getStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [],
+    paths: [
+      { params: { slug: 'serverless-quando-utilizar-e-aplicacoes-com-nodejs' } }
+    ],
     fallback: 'blocking',
   }
 }
@@ -80,6 +82,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       post,
-    }
+    },
+    revalidate: 60 * 30,
   }
 }
